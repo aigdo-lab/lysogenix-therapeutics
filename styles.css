@@ -1167,7 +1167,9 @@ a {
     margin-bottom: 2.5rem;
   }
 
-  .split-media {
+  .split-media,
+  .split-media.reveal,
+  .split-media.reveal.visible {
     position: relative;
     top: auto;
     transform: none;
