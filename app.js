@@ -1,61 +1,56 @@
 /* ==========================================================================
-   Lysogenix Therapeutics Inc. — Minimal Interactive Scripts
+   Lysogenix Therapeutics Inc. — Interactive Scripts (BeamTX Presentation)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initHeaderAndNav();
+  initHeaderAndOverlay();
   initScrollReveal();
-  initHeroCanvas();
-  initLightbox();
-  initContactForm();
+  initPrismHeroCanvas();
+  initFocusPillTabs();
+  initInquiryModalAndCopy();
 
   const yr = document.getElementById('yearNow');
   if (yr) yr.textContent = new Date().getFullYear();
 });
 
-function initHeaderAndNav() {
+/* -------------------- Floating Header & Full-Screen Overlay Menu -------------------- */
+function initHeaderAndOverlay() {
   const header = document.getElementById('siteHeader');
-  const menuBtn = document.getElementById('mobileMenuBtn');
-  const navLinks = document.getElementById('navLinks');
-  const links = navLinks.querySelectorAll('a[href^="#"]');
+  const toggleBtn = document.getElementById('menuToggleBtn');
+  const closeBtn = document.getElementById('menuCloseBtn');
+  const overlay = document.getElementById('menuOverlay');
 
   const onScroll = () => {
-    header.classList.toggle('scrolled', window.scrollY > 80);
+    header.classList.toggle('is-scrolling', window.scrollY > 120);
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  menuBtn.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded', String(open));
+  function openMenu() {
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  toggleBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.querySelectorAll('[data-close-menu]').forEach((el) => {
+    el.addEventListener('click', closeMenu);
   });
-
-  links.forEach((a) => {
-    a.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      menuBtn.setAttribute('aria-expanded', 'false');
-    });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
   });
-
-  const sections = Array.from(links)
-    .map((l) => document.querySelector(l.getAttribute('href')))
-    .filter(Boolean);
-
-  const spy = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          links.forEach((l) =>
-            l.classList.toggle('active', l.getAttribute('href') === `#${entry.target.id}`)
-          );
-        }
-      });
-    },
-    { rootMargin: '-38% 0px -52% 0px' }
-  );
-  sections.forEach((s) => spy.observe(s));
 }
 
+/* -------------------- Reveal on Scroll -------------------- */
 function initScrollReveal() {
   const els = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window)) {
@@ -71,56 +66,67 @@ function initScrollReveal() {
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.12 }
   );
   els.forEach((el) => io.observe(el));
 }
 
-function initHeroCanvas() {
+/* -------------------- Drifting Translucent Gold Prism Shards (Beam Hero Motif) -------------------- */
+function initPrismHeroCanvas() {
   const canvas = document.getElementById('heroCanvas');
   if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const ctx = canvas.getContext('2d');
-  let w, h, nodes;
+  let w, h, shards;
 
   function resize() {
     w = canvas.width = canvas.offsetWidth;
     h = canvas.height = canvas.offsetHeight;
-    const count = Math.min(38, Math.max(16, Math.floor((w * h) / 34000)));
-    nodes = Array.from({ length: count }, () => ({
+    const count = Math.min(28, Math.max(14, Math.floor((w * h) / 48000)));
+    shards = Array.from({ length: count }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.24,
-      vy: (Math.random() - 0.5) * 0.24,
-      r: 1.3 + Math.random() * 1.9,
+      size: 16 + Math.random() * 38,
+      angle: Math.random() * Math.PI * 2,
+      spin: (Math.random() - 0.5) * 0.0035,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.22,
+      alpha: 0.04 + Math.random() * 0.1,
+      strokeOnly: Math.random() > 0.55,
     }));
+  }
+
+  function drawTriangle(s) {
+    ctx.save();
+    ctx.translate(s.x, s.y);
+    ctx.rotate(s.angle);
+    ctx.beginPath();
+    ctx.moveTo(0, -s.size * 0.62);
+    ctx.lineTo(s.size * 0.58, s.size * 0.45);
+    ctx.lineTo(-s.size * 0.58, s.size * 0.45);
+    ctx.closePath();
+
+    if (s.strokeOnly) {
+      ctx.strokeStyle = `rgba(227, 199, 144, ${s.alpha * 1.45})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    } else {
+      ctx.fillStyle = `rgba(201, 166, 107, ${s.alpha})`;
+      ctx.fill();
+    }
+    ctx.restore();
   }
 
   function step() {
     ctx.clearRect(0, 0, w, h);
-    for (let i = 0; i < nodes.length; i++) {
-      const a = nodes[i];
-      a.x += a.vx;
-      a.y += a.vy;
-      if (a.x < 0 || a.x > w) a.vx *= -1;
-      if (a.y < 0 || a.y > h) a.vy *= -1;
-
-      for (let j = i + 1; j < nodes.length; j++) {
-        const b = nodes[j];
-        const dist = Math.hypot(a.x - b.x, a.y - b.y);
-        if (dist < 145) {
-          ctx.strokeStyle = `rgba(201, 166, 107, ${(1 - dist / 145) * 0.2})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-
-      ctx.fillStyle = 'rgba(227, 199, 144, 0.52)';
-      ctx.beginPath();
-      ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
-      ctx.fill();
+    for (const s of shards) {
+      s.x += s.vx;
+      s.y += s.vy;
+      s.angle += s.spin;
+      if (s.x < -60) s.x = w + 60;
+      if (s.x > w + 60) s.x = -60;
+      if (s.y < -60) s.y = h + 60;
+      if (s.y > h + 60) s.y = -60;
+      drawTriangle(s);
     }
     requestAnimationFrame(step);
   }
@@ -130,50 +136,168 @@ function initHeroCanvas() {
   step();
 }
 
-function initLightbox() {
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lightboxImg');
-  const lbCap = document.getElementById('lightboxCaption');
-  const closeBtn = document.getElementById('lightboxClose');
-  const backdrop = document.getElementById('lightboxBackdrop');
+/* -------------------- Beam-Style Spring-Animated Pill Tabs -------------------- */
+function initFocusPillTabs() {
+  const container = document.getElementById('focusTabs');
+  const selector = document.getElementById('tabSelector');
+  const summaryEl = document.getElementById('focusSummary');
+  const cardsEl = document.getElementById('focusCards');
+  if (!container || !selector) return;
 
-  function open(src, caption, alt) {
-    lbImg.src = src;
-    lbImg.alt = alt || caption || '';
-    lbCap.textContent = caption || '';
-    lb.classList.add('open');
-    lb.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+  const tabs = Array.from(container.querySelectorAll('.pill-tab'));
+
+  const content = {
+    gm2: {
+      summary:
+        'Advancing patented 4-PBA for early- and late-onset Tay-Sachs and Sandhoff disease—targeting ER stress-driven motor neuron degeneration with an accelerated translational path.',
+      cards: [
+        {
+          label: 'INDICATIONS',
+          stat: 'Tay-Sachs & Sandhoff',
+          text: 'Monogenic GM2 gangliosidoses spanning infantile, juvenile, and late-onset presentations.',
+          accent: false,
+        },
+        {
+          label: 'MECHANISM',
+          stat: 'ER Stress Modulation',
+          text: 'Chemical chaperone activity rebalances unfolded protein response signaling to protect spinal cord motor neurons.',
+          accent: true,
+        },
+        {
+          label: 'PRECLINICAL PROOF',
+          stat: 'Function & Survival',
+          text: 'Demonstrated motor neuron preservation, myofibril maintenance, and significant lifespan extension in severe disease models.',
+          accent: false,
+        },
+      ],
+    },
+    derivatives: {
+      summary:
+        'Building a differentiated small-molecule pipeline centered on 4-PBA and novel chemical chaperone derivatives to address broader Lysosomal Storage and neurodegenerative disorders.',
+      cards: [
+        {
+          label: 'INTELLECTUAL PROPERTY',
+          stat: 'Issued Patent',
+          text: 'Protected composition and therapeutic use covering 4-PBA for ER stress-induced neurodegeneration in GM2.',
+          accent: true,
+        },
+        {
+          label: 'PLATFORM EXPANSION',
+          stat: 'Next-Gen Derivatives',
+          text: 'Immediate growth plan extends beyond repurposed 4-PBA to optimized proprietary analogs.',
+          accent: false,
+        },
+        {
+          label: 'BROADER REACH',
+          stat: '1 in 5,000',
+          text: 'Combined incidence of Lysosomal Storage Diseases, sharing convergent ER stress pathology.',
+          accent: false,
+        },
+      ],
+    },
+    opportunity: {
+      summary:
+        'Rare neurodegenerative and lysosomal storage diseases combine urgent patient need with sustained commercial growth—creating an ideal setting for capital-efficient drug repurposing.',
+      cards: [
+        {
+          label: 'ORPHAN DRUG SECTOR',
+          stat: '$124B',
+          text: 'Global orphan drug sales (2020), projected to expand at ~11% CAGR (EvaluatePharma).',
+          accent: false,
+        },
+        {
+          label: 'LSD THERAPEUTICS',
+          stat: '$34B by 2030',
+          text: 'Lysosomal storage disease drug market growing from an estimated $22B in 2021.',
+          accent: true,
+        },
+        {
+          label: 'CAPITAL EFFICIENCY',
+          stat: 'Repurposing Edge',
+          text: 'De novo drug development averages ~$800M; repurposing FDA-approved 4-PBA streamlines clinical translation.',
+          accent: false,
+        },
+      ],
+    },
+  };
+
+  function moveSelector(activeTab) {
+    const rect = activeTab.getBoundingClientRect();
+    const parentRect = container.getBoundingClientRect();
+    selector.style.width = `${rect.width}px`;
+    selector.style.transform = `translateX(${rect.left - parentRect.left - 5}px)`;
   }
 
-  function close() {
-    lb.classList.remove('open');
-    lb.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+  function renderFocus(key) {
+    const data = content[key];
+    summaryEl.textContent = data.summary;
+    cardsEl.innerHTML = data.cards
+      .map(
+        (c) => `
+        <article class="focus-card ${c.accent ? 'accent' : ''}">
+          <div>
+            <div class="focus-card-label">${c.label}</div>
+            <div class="focus-card-stat">${c.stat}</div>
+          </div>
+          <p>${c.text}</p>
+        </article>`
+      )
+      .join('');
   }
 
-  document.querySelectorAll('.zoomable').forEach((el) => {
-    el.addEventListener('click', () => {
-      const img = el.querySelector('img');
-      open(el.dataset.src || img?.src, el.dataset.caption, img?.alt);
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => {
+        t.classList.toggle('active', t === tab);
+        t.setAttribute('aria-selected', String(t === tab));
+      });
+      moveSelector(tab);
+      renderFocus(tab.dataset.focus);
     });
   });
 
-  closeBtn.addEventListener('click', close);
-  backdrop.addEventListener('click', close);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lb.classList.contains('open')) close();
+  renderFocus('gm2');
+  // Position selector once fonts/layout settle
+  requestAnimationFrame(() => moveSelector(tabs[0]));
+  window.addEventListener('resize', () => {
+    const current = container.querySelector('.pill-tab.active');
+    if (current) moveSelector(current);
   });
 }
 
-function initContactForm() {
+/* -------------------- Inquiry Modal & Copy Email -------------------- */
+function initInquiryModalAndCopy() {
+  const modal = document.getElementById('inquiryModal');
+  const backdrop = document.getElementById('modalBackdrop');
+  const closeBtn = document.getElementById('modalCloseBtn');
+  const openBtns = [document.getElementById('openInquiryBtn'), document.getElementById('footerInquiryBtn')].filter(Boolean);
+
+  function openModal() {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  openBtns.forEach((b) => b.addEventListener('click', openModal));
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+
   const copyBtn = document.getElementById('copyEmailBtn');
   if (copyBtn) {
     copyBtn.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText('suleiman.igdoura@lysogenix.com');
         copyBtn.textContent = 'Copied!';
-        setTimeout(() => (copyBtn.textContent = 'Copy'), 1800);
+        setTimeout(() => (copyBtn.textContent = 'Copy email'), 1800);
       } catch {
         copyBtn.textContent = 'suleiman.igdoura@lysogenix.com';
       }
@@ -198,13 +322,11 @@ function initContactForm() {
     }
 
     const subject = encodeURIComponent(`[Lysogenix Therapeutics] Inquiry from ${name}${org ? ` (${org})` : ''}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nOrganization: ${org || 'N/A'}\nEmail: ${email}\n\n${message}`
-    );
+    const body = encodeURIComponent(`Name: ${name}\nOrganization: ${org || 'N/A'}\nEmail: ${email}\n\n${message}`);
     const mailto = `mailto:suleiman.igdoura@lysogenix.com?subject=${subject}&body=${body}`;
 
     fb.className = 'form-feedback ok';
-    fb.innerHTML = `Opening your email client — or <a href="${mailto}" style="text-decoration:underline;color:#e3c790;">click here to send</a> to suleiman.igdoura@lysogenix.com.`;
+    fb.innerHTML = `Opening your email client — or <a href="${mailto}" style="text-decoration:underline;color:#e3c790;">click here to send</a>.`;
     window.location.href = mailto;
   });
 }

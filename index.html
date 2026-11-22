@@ -4,50 +4,83 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lysogenix Therapeutics Inc. — Making a Difference</title>
-  <meta name="description" content="Lysogenix Therapeutics Inc. develops patented small-molecule therapeutics led by 4-PBA and its derivatives for neurodegenerative and lysosomal storage diseases." />
+  <meta name="description" content="Lysogenix Therapeutics Inc. advances patented repurposed small-molecule therapeutics led by 4-PBA and its derivatives for neurodegenerative and lysosomal storage diseases." />
   <meta property="og:title" content="Lysogenix Therapeutics Inc." />
   <meta property="og:description" content="Making a difference in neurodegenerative and lysosomal storage diseases." />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/png" href="assets/lysogenix-emblem.png" />
 
+  <!-- Editorial geometric sans (Beam-modeled scale) + classical serif exclusively for the Lysogenix wordmark -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Sticky Navigation -->
+  <!-- ==================== FLOATING BEAM-STYLE HEADER ==================== -->
   <header class="site-header" id="siteHeader">
     <div class="container header-inner">
-      <a href="#top" class="brand" aria-label="Lysogenix Therapeutics Home">
-        <img src="assets/lysogenix-emblem.png" alt="Lysogenix Therapeutics Emblem" class="brand-emblem" />
-        <span class="brand-name">Lysogenix Therapeutics</span>
+      <a href="#top" class="header-logo-wrap" aria-label="Lysogenix Therapeutics Home">
+        <span class="logo-prism" aria-hidden="true"></span>
+        <img src="assets/lysogenix-emblem.png" alt="Lysogenix Therapeutics" class="header-emblem" />
       </a>
 
-      <nav class="nav-links" id="navLinks" aria-label="Primary Navigation">
-        <a href="#mission">Mission</a>
-        <a href="#science">Science</a>
-        <a href="#opportunity">Market</a>
-        <a href="#leadership">Leadership</a>
-        <a href="#contact" class="nav-cta">Contact</a>
+      <nav class="inline-nav" aria-label="Primary Navigation">
+        <a href="#patent">Patent</a>
+        <a href="#science">Our Science</a>
+        <a href="#focus">Therapeutics</a>
+        <a href="#leadership">About Us</a>
+        <a href="#contact">Contact</a>
       </nav>
 
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
+      <button class="floating-menu-btn" id="menuToggleBtn" aria-label="Open navigation menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
       </button>
     </div>
   </header>
 
+  <!-- Full-Screen Editorial Overlay Menu (Beam-style) -->
+  <div class="menu-overlay" id="menuOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Site navigation">
+    <div class="container overlay-inner">
+      <div class="overlay-top">
+        <a href="#top" class="overlay-brand" data-close-menu>
+          <img src="assets/lysogenix-emblem.png" alt="Lysogenix Therapeutics" />
+          <span>Lysogenix Therapeutics</span>
+        </a>
+        <button class="overlay-close-btn" id="menuCloseBtn" aria-label="Close navigation menu">&times;</button>
+      </div>
+
+      <div class="overlay-body">
+        <nav class="overlay-links" aria-label="Overlay Navigation">
+          <a href="#top" data-close-menu>Home</a>
+          <a href="#patent" data-close-menu>Issued Patent</a>
+          <a href="#science" data-close-menu>Our Science</a>
+          <a href="#focus" data-close-menu>Therapeutics</a>
+          <a href="#leadership" data-close-menu>About Us</a>
+          <a href="#contact" data-close-menu>Contact</a>
+        </nav>
+
+        <div class="overlay-meta">
+          <p class="overlay-label">HEADQUARTERS</p>
+          <p class="overlay-address">175 Longwood Rd S., Suite 305<br />Hamilton, Ontario, Canada L8P 0A1</p>
+          <p class="overlay-label" style="margin-top:1.75rem;">DIRECT INQUIRIES</p>
+          <a href="mailto:suleiman.igdoura@lysogenix.com" class="overlay-email">suleiman.igdoura@lysogenix.com</a>
+          <a href="tel:+19059733003" class="overlay-phone">+1 (905) 973-3003</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main id="top">
-    <!-- ==================== LANDING HERO (COMPANY NAME ONLY) ==================== -->
-    <section class="hero">
+    <!-- ==================== 1. FULL-BLEED ANGLED HERO (COMPANY NAME ONLY) ==================== -->
+    <section class="hero-home">
       <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
       <div class="hero-glow" aria-hidden="true"></div>
 
-      <div class="container hero-center reveal">
+      <div class="container hero-stage">
         <img src="assets/lysogenix-emblem.png" alt="" class="hero-emblem" aria-hidden="true" />
         <h1 class="hero-company-name">Lysogenix Therapeutics</h1>
         <div class="hero-rule" aria-hidden="true">
@@ -57,281 +90,235 @@
         </div>
       </div>
 
-      <a href="#mission" class="scroll-cue" aria-label="Scroll to Mission">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      <a href="#patent" class="hero-scroll-link" aria-label="Scroll down for more">
+        <span>Scroll down for more</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
       </a>
     </section>
 
-    <!-- ==================== MISSION ==================== -->
-    <section class="section section-light" id="mission">
+    <!-- ==================== 2. ISSUED PATENT HIGHLIGHT BAND (Beam .section-time cadence) ==================== -->
+    <section class="section-recognition" id="patent">
       <div class="container">
-        <div class="section-header-center reveal">
-          <p class="section-kicker">Mission</p>
-          <h2 class="section-title">Advancing Therapeutics for Neurodegenerative &amp; Lysosomal Storage Diseases</h2>
-          <p class="section-intro">
-            Lysogenix Therapeutics is bringing repurposed small-molecule drugs—led by <strong>4-PBA</strong> and its
-            derivatives—to patients with rare neurodegenerative disorders.
+        <div class="recognition-wrapper reveal">
+          <div class="recognition-badge-card">
+            <img src="assets/lysogenix-emblem.png" alt="" class="badge-emblem" aria-hidden="true" />
+            <span class="badge-kicker">ISSUED</span>
+            <span class="badge-title">PATENT</span>
+          </div>
+
+          <div class="recognition-copy">
+            <p class="micro-eyebrow">INTELLECTUAL PROPERTY</p>
+            <h3>
+              Lysogenix Therapeutics holds an <strong>issued patent</strong> covering
+              <strong>4-phenylbutyric acid (4-PBA)</strong> for ER stress-induced neurodegeneration in GM2 gangliosidosis.
+            </h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 3. SCIENCE FEATURE SPLIT (Beam .section-image right-bleed) ==================== -->
+    <section class="section-split" id="science">
+      <div class="container split-inner">
+        <div class="split-copy reveal">
+          <h2 class="display-h2">
+            <small>Our Science</small>
+            Precision Drug Repurposing
+          </h2>
+          <p>
+            Lysosomal Storage Diseases are inherited disorders affecting 1 in 5,000 individuals—causing progressive neurodegeneration with profound unmet clinical need.
+          </p>
+          <p>
+            By repurposing FDA-approved 4-PBA and developing next-generation chemical chaperone derivatives, Lysogenix targets ER stress directly to protect motor neurons and accelerate delivery to patients.
+          </p>
+          <a href="#focus" class="pill-btn">Explore Therapeutics</a>
+        </div>
+      </div>
+
+      <div class="split-media reveal reveal-delay-1">
+        <img src="assets/science-editorial.jpg" alt="Precision laboratory prisms and glassware in warm sunlit research space" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- ==================== 4. THERAPEUTIC FOCUS SWITCHER (Beam sliding-pill tabs) ==================== -->
+    <section class="section-focus" id="focus">
+      <div class="container">
+        <div class="focus-head reveal">
+          <h2 class="display-h2">
+            <small>Pipeline &amp; Strategy</small>
+            Therapeutic Focus
+          </h2>
+
+          <div class="pill-tabs" id="focusTabs" role="tablist" aria-label="Therapeutic focus areas">
+            <div class="tab-selector" id="tabSelector" aria-hidden="true"></div>
+            <button class="pill-tab active" data-focus="gm2" role="tab" aria-selected="true">GM2 Gangliosidoses</button>
+            <button class="pill-tab" data-focus="derivatives" role="tab" aria-selected="false">4-PBA Derivatives</button>
+            <button class="pill-tab" data-focus="opportunity" role="tab" aria-selected="false">Rare Disease Market</button>
+          </div>
+        </div>
+
+        <div class="focus-stage reveal">
+          <p class="focus-summary" id="focusSummary">
+            Advancing patented 4-PBA for early- and late-onset Tay-Sachs and Sandhoff disease—targeting ER stress-driven motor neuron degeneration with an accelerated translational path.
+          </p>
+
+          <div class="focus-cards" id="focusCards">
+            <!-- Populated cleanly via app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 5. ABOUT US / LEADERSHIP (Beam .section-gallery geometric backdrop) ==================== -->
+    <section class="section-gallery" id="leadership">
+      <div class="container">
+        <div class="gallery-intro reveal">
+          <h2 class="display-h2">
+            <small>About Us</small>
+            Our Leadership
+          </h2>
+          <p>
+            Founded by McMaster University scientists translating foundational ER stress discoveries into meaningful medicines for patients and families.
           </p>
         </div>
 
-        <div class="pillars-grid reveal reveal-delay-1">
-          <article class="pillar-card">
-            <span class="mono pillar-tag">ISSUED PATENT</span>
-            <h3>Protected IP</h3>
-            <p>Issued patent covering 4-PBA for ER stress-induced neurodegeneration in GM2 gangliosidosis.</p>
-          </article>
-
-          <article class="pillar-card">
-            <span class="mono pillar-tag">DRUG REPURPOSING</span>
-            <h3>Accelerated Translation</h3>
-            <p>Leveraging an FDA-approved chemical chaperone backbone to reduce R&amp;D risk, cost, and time to clinic.</p>
-          </article>
-
-          <article class="pillar-card">
-            <span class="mono pillar-tag">LEAD FOCUS</span>
-            <h3>GM2 Gangliosidoses</h3>
-            <p>Targeting early- and late-onset Tay-Sachs and Sandhoff disease, with expansion across LSDs.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== SCIENCE & PRECLINICAL HIGHLIGHTS ==================== -->
-    <section class="section section-dark" id="science">
-      <div class="container">
-        <div class="section-header-center reveal">
-          <p class="section-kicker kicker-gold">Science &amp; Therapeutics</p>
-          <h2 class="section-title light">Targeting ER Stress to Protect Motor Neurons</h2>
-          <p class="section-intro light-muted">
-            Lysosomal Storage Diseases affect <strong>1 in 5,000</strong> individuals. In GM2 gangliosidoses,
-            chronic ER stress drives anterior horn motor neuron death. Our patented <strong>4-PBA</strong> approach
-            rebalances ER stress signaling to preserve neurons, muscle integrity, motor function, and lifespan.
-          </p>
-        </div>
-
-        <!-- Concise Key Findings Strip -->
-        <div class="outcomes-strip reveal">
-          <div class="outcome-pill">
-            <span class="mono outcome-val">ER Stress</span>
-            <span class="outcome-sub">Modulates GRP78, ATF6, XBP1 &amp; p-eIF2&alpha;</span>
-          </div>
-          <div class="outcome-pill">
-            <span class="mono outcome-val">Anti-Apoptotic</span>
-            <span class="outcome-sub">Reduces nuclear c-Cas7 cell death</span>
-          </div>
-          <div class="outcome-pill">
-            <span class="mono outcome-val">Neuroprotective</span>
-            <span class="outcome-sub">Preserves ChAT+ motor neurons &amp; myofibrils</span>
-          </div>
-          <div class="outcome-pill">
-            <span class="mono outcome-val">P &lt; 0.0008</span>
-            <span class="outcome-sub">Improves motor function &amp; extends lifespan</span>
-          </div>
-        </div>
-
-        <!-- Clean Visual Gallery (No Graphs) -->
-        <div class="gallery-grid reveal reveal-delay-1">
-          <figure class="figure-frame zoomable" data-src="assets/fig-er-stress.jpg" data-caption="Spinal cord immunofluorescence (80d): 4-PBA increases adaptive GRP78, nuclear ATF6, and XBP1 while reducing p-eIF2α in hexb-/- anterior horn neurons.">
-            <div class="figure-img-box">
-              <img src="assets/fig-er-stress.jpg" alt="4-PBA modulation of ER stress markers in spinal cord neurons" loading="lazy" />
-            </div>
-            <figcaption class="figure-caption-bar">
-              <span>ER Stress Modulation (80d)</span>
-              <span class="zoom-hint">Enlarge</span>
-            </figcaption>
-          </figure>
-
-          <figure class="figure-frame zoomable" data-src="assets/fig-chat-motor-neurons.jpg" data-caption="Cholinergic motor neuron preservation (80d): 4-PBA maintains intense cytosolic ChAT staining in anterior horn motor neurons of hexb-/- mice.">
-            <div class="figure-img-box">
-              <img src="assets/fig-chat-motor-neurons.jpg" alt="Maintenance of ChAT-positive cholinergic motor neurons with 4-PBA" loading="lazy" />
-            </div>
-            <figcaption class="figure-caption-bar">
-              <span>Motor Neuron Preservation (80d)</span>
-              <span class="zoom-hint">Enlarge</span>
-            </figcaption>
-          </figure>
-
-          <figure class="figure-frame zoomable" data-src="assets/fig-muscle-myofibril.jpg" data-caption="Skeletal muscle histology (80d): 4-PBA maintains normal myofibril cross-sectional integrity in hexb-/- mice, consistent with intact cholinergic innervation.">
-            <div class="figure-img-box">
-              <img src="assets/fig-muscle-myofibril.jpg" alt="Preserved skeletal muscle myofibril integrity with 4-PBA treatment" loading="lazy" />
-            </div>
-            <figcaption class="figure-caption-bar">
-              <span>Muscle Myofibril Integrity (80d)</span>
-              <span class="zoom-hint">Enlarge</span>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== MARKET OPPORTUNITY ==================== -->
-    <section class="section section-light" id="opportunity">
-      <div class="container">
-        <div class="section-header-center reveal">
-          <p class="section-kicker">Market Opportunity</p>
-          <h2 class="section-title">A High-Growth Rare Disease Sector</h2>
-        </div>
-
-        <div class="market-kpis reveal">
-          <div class="kpi-card">
-            <span class="mono kpi-tag">ORPHAN DRUGS</span>
-            <div class="kpi-number">$124B</div>
-            <p class="kpi-desc">Global sales (2020), growing at ~11% CAGR.</p>
+        <!-- Beam-inspired staggered rounded-corner showcase -->
+        <div class="leadership-composition reveal reveal-delay-1">
+          <div class="atrium-frame">
+            <img src="assets/atrium-editorial.jpg" alt="Modern sunlit Canadian life sciences research atrium" loading="lazy" />
+            <div class="atrium-tag">Hamilton, Ontario &bull; McMaster Innovation Corridor</div>
           </div>
 
-          <div class="kpi-card featured">
-            <span class="mono kpi-tag">LSD THERAPEUTICS</span>
-            <div class="kpi-number">$34B</div>
-            <p class="kpi-desc">Projected by 2030, up from $22B in 2021.</p>
-          </div>
+          <div class="leaders-pair">
+            <article class="leader-card">
+              <div class="leader-photo">
+                <img src="assets/suleiman-igdoura.jpg" alt="Suleiman Igdoura, PhD" loading="lazy" />
+              </div>
+              <div class="leader-meta">
+                <span class="leader-role">Chief Executive Officer</span>
+                <h3>Suleiman Igdoura, PhD</h3>
+                <p>Professor, McMaster University</p>
+              </div>
+            </article>
 
-          <div class="kpi-card">
-            <span class="mono kpi-tag">REPURPOSING EDGE</span>
-            <div class="kpi-number">~$800M</div>
-            <p class="kpi-desc">Typical de novo launch cost—bypassed via 4-PBA repurposing.</p>
+            <article class="leader-card">
+              <div class="leader-photo">
+                <img src="assets/richard-austin.jpg" alt="Richard Austin, PhD" loading="lazy" />
+              </div>
+              <div class="leader-meta">
+                <span class="leader-role">Chief Scientific Officer</span>
+                <h3>Richard Austin, PhD</h3>
+                <p>Professor, McMaster University</p>
+              </div>
+            </article>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== LEADERSHIP ==================== -->
-    <section class="section section-cream" id="leadership">
-      <div class="container">
-        <div class="section-header-center reveal">
-          <p class="section-kicker">Leadership</p>
-          <h2 class="section-title">Our Team</h2>
-        </div>
-
-        <div class="team-grid">
-          <article class="leader-card reveal">
-            <div class="leader-photo-wrap">
-              <img src="assets/suleiman-igdoura.jpg" alt="Suleiman Igdoura, PhD — CEO, Lysogenix Therapeutics" loading="lazy" />
-            </div>
-            <div class="leader-body">
-              <span class="mono leader-role">CHIEF EXECUTIVE OFFICER</span>
-              <h3>Suleiman Igdoura, PhD</h3>
-              <p class="leader-affil">Professor, McMaster University</p>
-              <a href="mailto:suleiman.igdoura@lysogenix.com" class="leader-contact mono">
-                suleiman.igdoura@lysogenix.com
-              </a>
-            </div>
-          </article>
-
-          <article class="leader-card reveal reveal-delay-1">
-            <div class="leader-photo-wrap">
-              <img src="assets/richard-austin.jpg" alt="Richard Austin, PhD — CSO, Lysogenix Therapeutics" loading="lazy" />
-            </div>
-            <div class="leader-body">
-              <span class="mono leader-role">CHIEF SCIENTIFIC OFFICER</span>
-              <h3>Richard Austin, PhD</h3>
-              <p class="leader-affil">Professor, McMaster University</p>
-              <span class="leader-affiliation-pill">Hamilton, Ontario</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== CONTACT ==================== -->
-    <section class="section section-dark contact-section" id="contact">
-      <div class="container">
-        <div class="contact-grid">
-          <div class="contact-info reveal">
-            <p class="section-kicker kicker-gold">Contact</p>
-            <h2 class="section-title light">Get in Touch</h2>
-            <p class="dark-text">
-              For investor, partnering, or research inquiries, please reach out directly.
-            </p>
-
-            <div class="contact-details">
-              <div class="contact-detail-row">
-                <div class="detail-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                </div>
-                <div>
-                  <span class="mono detail-label">ADDRESS</span>
-                  <p>175 Longwood Rd S., Suite 305<br />Hamilton, Ontario, Canada L8P 0A1</p>
-                </div>
-              </div>
-
-              <div class="contact-detail-row">
-                <div class="detail-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </div>
-                <div>
-                  <span class="mono detail-label">PHONE</span>
-                  <p><a href="tel:+19059733003">+1 (905) 973-3003</a></p>
-                </div>
-              </div>
-
-              <div class="contact-detail-row">
-                <div class="detail-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                </div>
-                <div>
-                  <span class="mono detail-label">EMAIL</span>
-                  <div class="email-copy-row">
-                    <a href="mailto:suleiman.igdoura@lysogenix.com">suleiman.igdoura@lysogenix.com</a>
-                    <button type="button" class="copy-btn" id="copyEmailBtn" title="Copy email address">Copy</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="contact-form-card reveal reveal-delay-1">
-            <h3>Send a Message</h3>
-            <form id="contactForm" novalidate>
-              <div class="form-row">
-                <div class="form-field">
-                  <label for="senderName">Name *</label>
-                  <input type="text" id="senderName" name="name" placeholder="Your name" required />
-                </div>
-                <div class="form-field">
-                  <label for="senderOrg">Organization</label>
-                  <input type="text" id="senderOrg" name="org" placeholder="Company or institution" />
-                </div>
-              </div>
-
-              <div class="form-field">
-                <label for="senderEmail">Email *</label>
-                <input type="email" id="senderEmail" name="email" placeholder="name@organization.com" required />
-              </div>
-
-              <div class="form-field">
-                <label for="senderMessage">Message *</label>
-                <textarea id="senderMessage" name="message" rows="4" placeholder="How can we help?" required></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-gold btn-full">Send Inquiry</button>
-              <div class="form-feedback" id="formFeedback" role="status" aria-live="polite"></div>
-            </form>
-          </div>
-        </div>
+    <!-- ==================== 6. BREATHING-ROOM PARTNER CTA (Beam pause band) ==================== -->
+    <section class="section-pause">
+      <div class="container reveal">
+        <h2 class="display-h2">Partner with Lysogenix</h2>
+        <p class="pause-sub">
+          Connecting with life sciences investors, biopharma partners, and clinical collaborators.
+        </p>
+        <button type="button" class="pill-btn" id="openInquiryBtn">Get in Touch</button>
       </div>
     </section>
   </main>
 
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <img src="assets/lysogenix-emblem.png" alt="Lysogenix Therapeutics" class="footer-emblem" />
-        <span class="footer-title">Lysogenix Therapeutics Inc.</span>
+  <!-- ==================== 7. BEAM-MODELED FULL-BLEED FOOTER + SLANTED CONTACT BLOCK ==================== -->
+  <footer class="site-footer" id="contact">
+    <div class="container footer-grid">
+      <!-- Left: Brand Emblem -->
+      <div class="footer-col-brand">
+        <a href="#top" class="footer-brand-link" aria-label="Back to top">
+          <img src="assets/lysogenix-emblem.png" alt="Lysogenix Therapeutics" class="footer-emblem" />
+          <span class="footer-wordmark">Lysogenix<br />Therapeutics</span>
+        </a>
       </div>
-      <div class="footer-legal">
-        &copy; <span id="yearNow">2026</span> Lysogenix Therapeutics Inc. &bull; Hamilton, Ontario, Canada
+
+      <!-- Center: Oversized Vertical Nav Stack -->
+      <div class="footer-col-nav">
+        <nav class="footer-big-nav" aria-label="Footer Navigation">
+          <a href="#patent">Issued Patent</a>
+          <a href="#science">Our Science</a>
+          <a href="#focus">Therapeutics</a>
+          <a href="#leadership">About Us</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="footer-legal">
+          <p>&copy; <span id="yearNow">2026</span> Lysogenix Therapeutics Inc. All rights reserved.</p>
+          <p class="footer-location-note">175 Longwood Rd S., Suite 305 &bull; Hamilton, Ontario, Canada L8P 0A1</p>
+        </div>
+      </div>
+
+      <!-- Right: Elevated Contrasting Panel with Slanted Bottom Edge -->
+      <div class="footer-col-contact">
+        <div class="footer-contact-block">
+          <h2>Contact Us</h2>
+
+          <div class="contact-group">
+            <span class="contact-micro">GENERAL &amp; INVESTOR INQUIRIES</span>
+            <a href="mailto:suleiman.igdoura@lysogenix.com" class="contact-link">suleiman.igdoura@lysogenix.com</a>
+            <button type="button" class="copy-email-chip" id="copyEmailBtn">Copy email</button>
+          </div>
+
+          <div class="short-hairline" aria-hidden="true"></div>
+
+          <div class="contact-group">
+            <span class="contact-micro">PHONE</span>
+            <a href="tel:+19059733003" class="contact-link">+1 (905) 973-3003</a>
+          </div>
+
+          <div class="contact-group">
+            <span class="contact-micro">HEADQUARTERS</span>
+            <p class="contact-addr">175 Longwood Rd S., Suite 305<br />Hamilton, ON L8P 0A1, Canada</p>
+          </div>
+
+          <div class="full-hairline" aria-hidden="true"></div>
+
+          <button type="button" class="pill-btn pill-btn-gold" id="footerInquiryBtn">Send a Message</button>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- ==================== SCIENTIFIC IMAGE LIGHTBOX ==================== -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Enlarged scientific figure">
-    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
-    <div class="lightbox-dialog">
-      <button class="lightbox-close" id="lightboxClose" aria-label="Close enlarged figure">&times;</button>
-      <img id="lightboxImg" src="" alt="" />
-      <p id="lightboxCaption" class="lightbox-caption"></p>
+  <!-- ==================== CLEAN INQUIRY MODAL ==================== -->
+  <div class="modal" id="inquiryModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-card">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close inquiry form">&times;</button>
+      <p class="micro-eyebrow" style="color:var(--gold-bright);">LYSOGENIX THERAPEUTICS</p>
+      <h3 id="modalTitle">Send an Inquiry</h3>
+
+      <form id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="senderName">Name *</label>
+            <input type="text" id="senderName" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-field">
+            <label for="senderOrg">Organization</label>
+            <input type="text" id="senderOrg" name="org" placeholder="Company or institution" />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="senderEmail">Email *</label>
+          <input type="email" id="senderEmail" name="email" placeholder="name@organization.com" required />
+        </div>
+
+        <div class="form-field">
+          <label for="senderMessage">Message *</label>
+          <textarea id="senderMessage" name="message" rows="4" placeholder="How can we collaborate?" required></textarea>
+        </div>
+
+        <button type="submit" class="pill-btn pill-btn-gold btn-full">Send Inquiry</button>
+        <div class="form-feedback" id="formFeedback" role="status" aria-live="polite"></div>
+      </form>
     </div>
   </div>
 
