@@ -222,10 +222,8 @@ function initFocusPillTabs() {
   };
 
   function moveSelector(activeTab) {
-    const rect = activeTab.getBoundingClientRect();
-    const parentRect = container.getBoundingClientRect();
-    selector.style.width = `${rect.width}px`;
-    selector.style.transform = `translateX(${rect.left - parentRect.left - 5}px)`;
+    selector.style.width = `${activeTab.offsetWidth}px`;
+    selector.style.transform = `translateX(${activeTab.offsetLeft}px)`;
   }
 
   function renderFocus(key) {
@@ -257,12 +255,15 @@ function initFocusPillTabs() {
   });
 
   renderFocus('gm2');
-  // Position selector once fonts/layout settle
-  requestAnimationFrame(() => moveSelector(tabs[0]));
-  window.addEventListener('resize', () => {
+  const syncSelector = () => {
     const current = container.querySelector('.pill-tab.active');
     if (current) moveSelector(current);
-  });
+  };
+  requestAnimationFrame(syncSelector);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(syncSelector);
+  }
+  window.addEventListener('resize', syncSelector);
 }
 
 /* -------------------- Inquiry Modal & Copy Email -------------------- */
